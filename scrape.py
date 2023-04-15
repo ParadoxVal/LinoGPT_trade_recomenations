@@ -69,7 +69,7 @@ def scrape_data_from_yahoo(url = 'https://finance.yahoo.com/quote/TSLA/'):
     
 def gpt_assessment(text):
     response = openai.ChatCompletion.create(
-                model="gpt-3.5-turbo",
+                model='gpt-4',#"gpt-3.5-turbo",
                 messages=[
                         {"role": "system", "content": "You are a helpful stock and cryto currency assistant. Respond with only Buy, Sell, or Hold based on the provided input. Then in the next line a short description of why you have decided that."},
                         {"role": "user", "content": f"Given the following text, recommend whether to buy, hold, or sell a stock: '{text}'.\n\nRecommendation:"}
