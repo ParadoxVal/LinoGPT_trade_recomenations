@@ -4,14 +4,13 @@ This is a Python project that helps users to decide whether to buy, sell or hold
 
 ### Setup
 
-1.Clone the repository.
-2.Install the required packages: pip install -r requirements.txt
-3.Obtain an OpenAI API key and create a .env file in the root directory with the following content:
-makefile
+1. Clone the repository.
+2. Install the required packages: pip install -r requirements.txt
+3. Obtain an OpenAI API key and create a .env file in the root directory with the following content:
 
 ```
 OPENAI_API_KEY=<your_api_key>
-Run the main.py file: python main.py.
+Run the main.py file: python scrape.py.
 ```
 
 ### Usage
