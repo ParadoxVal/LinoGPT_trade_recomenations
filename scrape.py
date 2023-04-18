@@ -1,3 +1,5 @@
+
+import time
 import os
 import requests
 from bs4 import BeautifulSoup
@@ -29,6 +31,12 @@ CREDENTIALS = service_account.Credentials.from_service_account_file(
 
 # Create Drive API client
 SHEETS_SERVICE = build('sheets', 'v4', credentials=CREDENTIALS)
+
+
+
+# Set the time to run the script (6:20 am)
+hour = 6
+minute = 20
 
 '''********************************************************************
                            MAIN METHODS
@@ -106,7 +114,8 @@ def update_google_sheet(name, decision, rational, row = 1):
     print('{0} cells updated.'.format(result.get('updatedCells')))
 
 
-if __name__=="__main__":
+
+def main_job():
     values = get_info_from_google_sheet()
     for i, row in enumerate(values, start=1):
             name, link = row[0], row[1]
@@ -115,3 +124,35 @@ if __name__=="__main__":
             if text:
                 decision, rational = gpt_assessment(text)
                 update_google_sheet(name, decision, rational, row = i)
+    
+    
+    # Get the current time as a struct_time object
+    current_time = time.localtime()
+    
+    # Format the current time as a string
+    time_string = time.strftime('%Y-%m-%d %H:%M:%S', current_time)
+    
+    #Include of message of last time this was runned
+    update_google_sheet("LastRun", "", time_string, row = i+1)
+                
+                
+def run_schedule():        
+    while True:
+        # Get the current time
+        now = time.localtime()
+    
+        # Check if it's time to run the script
+        if now.tm_hour >= hour and now.tm_min >= minute:
+         
+            main_job()
+            # Wait until the next day
+            print('Sleeping 24 hours')
+            time.sleep(24 * 60 * 60)
+        else:
+            # Wait for 1 minute and check again
+            time.sleep(60)
+            
+            
+
+if __name__=="__main__":
+   run_schedule()
