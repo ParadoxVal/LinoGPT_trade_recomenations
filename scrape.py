@@ -36,7 +36,7 @@ SHEETS_SERVICE = build('sheets', 'v4', credentials=CREDENTIALS)
 
 # Set the time to run the script (6:20 am)
 hour = 6
-minute = 20
+minute = 0
 
 '''********************************************************************
                            MAIN METHODS
@@ -146,11 +146,10 @@ def run_schedule():
          
             main_job()
             # Wait until the next day
-            print('Sleeping 24 hours')
-            time.sleep(24 * 60 * 60)
-        else:
-            # Wait for 1 minute and check again
-            time.sleep(60)
+
+        print('Sleeping 1 hour')
+        time.sleep(1 * 60 * 60)
+
             
             
 
