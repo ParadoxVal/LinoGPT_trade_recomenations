@@ -35,7 +35,7 @@ SHEETS_SERVICE = build('sheets', 'v4', credentials=CREDENTIALS)
 
 
 # Set the time to run the script (6:20 am)
-hour = 6
+hour = 5
 minute = 0
 
 '''********************************************************************
@@ -142,10 +142,12 @@ def run_schedule():
         now = time.localtime()
     
         # Check if it's time to run the script
-        if now.tm_hour >= hour and now.tm_min >= minute:
+        if now.tm_hour >= hour and now.tm_hour < hour + 2:
          
             main_job()
             # Wait until the next day
+            print('Sleeping 2 hour')
+            time.sleep(2 * 60 * 60)
 
         print('Sleeping 1 hour')
         time.sleep(1 * 60 * 60)
